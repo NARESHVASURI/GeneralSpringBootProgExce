@@ -1,8 +1,15 @@
 name: CI Maven project
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      Target_Environment:
+        type: environment
+        default: dev
+        
 jobs:
   CI_non_containarization_build:
     runs-on: ubuntu-latest
+    environment: ${{inputs.Target_Environment}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -19,6 +26,7 @@ jobs:
         with:
           name: Package
           path: staging
+      - run: echo 'vars is ${{vars.variable}}'
           
         
             
